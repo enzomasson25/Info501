@@ -26,7 +26,7 @@ class image:
     def load_image(self, file_name):
         self.pixels = io.imread(file_name)
         self.H,self.W = self.pixels.shape 
-        print("lecture image : " + file_name + " (" + str(self.H) + "x" + str(self.W) + ")")
+        
 
     # Affichage a l'ecran d'une image
     def display(self, window_name):
@@ -107,6 +107,8 @@ class image:
         
         im_resized = image()
         im_resized.pixels = resize(self.pixels, (new_H,new_W), 0)
+        im_resized.H=new_H
+        im_resized.W=new_W
         
         return im_resized
 
@@ -114,10 +116,18 @@ class image:
     # Methode de mesure de similitude entre l'image self et un modele im
     #==============================================================================
 
-#    def simil_im(self,im):
-        # ecrire ici la methode de mesure de similitude par correlation
-
-
+    def simil_im(self,im):
+        #on suppose que les 2 images ont la même dimension 
+        pixelTotal=self.H*self.W
+        pixelEgaux=0
+        for i in range(0,self.H):
+            for j in range(0,self.W):
+                if self.pixels[i][j]==im.pixels[i][j]:
+                    pixelEgaux=pixelEgaux+1
+                
+        
+        return pixelEgaux/pixelTotal
+        
 
 
    
@@ -175,24 +185,21 @@ im_loc.display("image localisée")
 # Test de la fonction resize
 #==============================================================================
 
-im_resized=im_loc.resize_im(60,200)
+im_resized=im_loc.resize_im(32,21)
 im_resized.display("image resized")
 
 #
 #==============================================================================
 # Test de la fonction similitude
 #==============================================================================
-
-
-
-
-#==============================================================================
-# Lecture des chiffres modeles
-#==============================================================================
-
 list_model = lect_modeles()
-# test verifiant la bonne lecture de l'un des modeles, par exemple le modele '8'
-list_model[8].display("modele 8")
+img_6=image()
+img_6=list_model[6]
+img_6.display("veritable 6")
+
+rapportSimilitude = im_resized.simil_im(list_model[6])
+print(rapportSimilitude)
+
 
 #==============================================================================
 # Mesure de similitude entre l'image et les modeles 
