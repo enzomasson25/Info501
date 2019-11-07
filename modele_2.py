@@ -127,6 +127,26 @@ class image:
                     pixelEgaux=pixelEgaux+1
                 
         return pixelEgaux/pixelTotal
+    
+    
+    #==============================================================================
+    # Methode de detection du chiffre
+    #==============================================================================
+    def chiffre(self):
+        meilleurSimi=0
+        res=0
+        imBin=self.binaris(150)
+        imLoc=imBin.localisation()
+        list_model = lect_modeles()
+        for i in range(0,len(list_model)):
+            img = image()
+            img=list_model[i]
+            im_resize=imLoc.resize_im(img.H,img.W)
+            if im_resize.simil_im(img)>meilleurSimi:
+                meilleurSimi=im_resize.simil_im(img)
+                res = i
+        return res
+            
         
 # fin class image
 
@@ -158,44 +178,44 @@ def lect_modeles():
 # # Lecture image
 #==============================================================================
 
-im = image()
-im.load_image('test2.JPG')
-im.display("image initiale")
+#im = image()
+#im.load_image('test2.JPG')
+#im.display("image initiale")
 
 #==============================================================================
 # Binarisation
 #==============================================================================
 
-im_bin=im.binaris(150)
-im_bin.display("image binarisé")
+#im_bin=im.binaris(150)
+#im_bin.display("image binarisé")
 
 #
 #==============================================================================
 #  Localisation chiffre
 #==============================================================================
 #
-im_loc=im_bin.localisation()
-im_loc.display("image localisée")
+#im_loc=im_bin.localisation()
+#im_loc.display("image localisée")
 
 #
 #==============================================================================
 # Test de la fonction resize
 #==============================================================================
 
-im_resized=im_loc.resize_im(32,18)
-im_resized.display("image resized")
+#im_resized=im_loc.resize_im(32,18)
+#im_resized.display("image resized")
 
 #
 #==============================================================================
 # Test de la fonction similitude
 #==============================================================================
-list_model = lect_modeles()
-img_1=image()
-img_1=list_model[1]
-img_1.display("veritable 1")
-
-rapportSimilitude = im_resized.simil_im(img_1.binaris(150))
-print(rapportSimilitude)
+#list_model = lect_modeles()
+#img_1=image()
+#img_1=list_model[1]
+#img_1.display("veritable 1")
+#
+#rapportSimilitude = im_resized.simil_im(img_1)
+#print(rapportSimilitude)
 
 
 #==============================================================================
@@ -203,5 +223,7 @@ print(rapportSimilitude)
 # et recherche de la meilleure similitude
 #==============================================================================
 
-
+imaTrouver = image()
+imaTrouver.load_image('test10.JPG')
+print(imaTrouver.chiffre())
 
