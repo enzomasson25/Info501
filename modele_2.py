@@ -81,22 +81,20 @@ class image:
                         return i
         
         def c_max(self):
-            for i in range(0,self.W):
-                for j in range(self.H,0,-1):
+            for i in range(self.W-1,0,-1):
+                for j in range(self.H-1,0,-1):
                     if self.pixels[j][i]==0:
                         return i
         
         def l_max(self):
-            for i in range(self.H,0,-1):
-                for j in range(self.W,0,-1):
+            for i in range(self.H-1,0,-1):
+                for j in range(self.W-1,0,-1):
                     if self.pixels[i][j]==0:
-                        return j
+                        return i
                     
-                    
-        print(c_min(self)) #good
-        print(l_min(self)) #good
-        print(c_max(self)) 
-        print(l_max(self))
+        img=image()
+        img.set_pixels(self.pixels[l_min(self):l_max(self),c_min(self):c_max(self)])
+        return img
         
     
     
@@ -105,7 +103,7 @@ class image:
     # Methode de redimensionnement d'image
     #==============================================================================
 
-#    def resize_im(self,new_H,new_W):
+    def resize_im(self,new_H,new_W):
 
         # ecrire ici la methode de redimensionnement
 		# attention la fonction resize fournit une image
@@ -113,7 +111,7 @@ class image:
 		# il faut donc multiplier le resultat par 255
 		# et convertir au format entier non signe sur 8 bits :
 		# ima_resize.pixels = np.uint8(ima_resize.pixels*255)
-
+        
 
 
     #==============================================================================
@@ -166,7 +164,6 @@ im.display("image initiale")
 #==============================================================================
 
 im_bin=im.binaris(150)
-print(type(im_bin))
 im_bin.display("image binarisé")
 
 #
@@ -175,7 +172,7 @@ im_bin.display("image binarisé")
 #==============================================================================
 #
 im_loc=im_bin.localisation()
-
+im_loc.display("image localisée")
 
 #
 #==============================================================================
