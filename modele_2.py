@@ -104,15 +104,11 @@ class image:
     #==============================================================================
 
     def resize_im(self,new_H,new_W):
-
-        # ecrire ici la methode de redimensionnement
-		# attention la fonction resize fournit une image
-		# dont des valeurs sont reelles et comprises entre 0 et 1
-		# il faut donc multiplier le resultat par 255
-		# et convertir au format entier non signe sur 8 bits :
-		# ima_resize.pixels = np.uint8(ima_resize.pixels*255)
         
-
+        im_resized = image()
+        im_resized.pixels = resize(self.pixels, (new_H,new_W), 0)
+        
+        return im_resized
 
     #==============================================================================
     # Methode de mesure de similitude entre l'image self et un modele im
@@ -179,8 +175,8 @@ im_loc.display("image localisée")
 # Test de la fonction resize
 #==============================================================================
 
-
-
+im_resized=im_loc.resize_im(60,200)
+im_resized.display("image resized")
 
 #
 #==============================================================================
