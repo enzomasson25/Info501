@@ -109,6 +109,7 @@ class image:
         im_resized.pixels = resize(self.pixels, (new_H,new_W), 0)
         im_resized.H=new_H
         im_resized.W=new_W
+        im_resized.pixels = np.uint8(im_resized.pixels*255)
         
         return im_resized
 
@@ -125,12 +126,8 @@ class image:
                 if self.pixels[i][j]==im.pixels[i][j]:
                     pixelEgaux=pixelEgaux+1
                 
-        
         return pixelEgaux/pixelTotal
         
-
-
-   
 # fin class image
 
 
@@ -162,7 +159,7 @@ def lect_modeles():
 #==============================================================================
 
 im = image()
-im.load_image('test10.JPG')
+im.load_image('test2.JPG')
 im.display("image initiale")
 
 #==============================================================================
@@ -185,7 +182,7 @@ im_loc.display("image localisée")
 # Test de la fonction resize
 #==============================================================================
 
-im_resized=im_loc.resize_im(32,21)
+im_resized=im_loc.resize_im(32,18)
 im_resized.display("image resized")
 
 #
@@ -193,11 +190,11 @@ im_resized.display("image resized")
 # Test de la fonction similitude
 #==============================================================================
 list_model = lect_modeles()
-img_6=image()
-img_6=list_model[6]
-img_6.display("veritable 6")
+img_1=image()
+img_1=list_model[1]
+img_1.display("veritable 1")
 
-rapportSimilitude = im_resized.simil_im(list_model[6])
+rapportSimilitude = im_resized.simil_im(img_1.binaris(150))
 print(rapportSimilitude)
 
 
